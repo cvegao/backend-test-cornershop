@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Staff Portal</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1"
+          crossorigin="anonymous">
+    <style>
+        h1 {
+            text-align: center;
+            margin: 3rem auto;
+        }
+
+        .center-col {
+            margin-left: 5rem;
+        }
+
+        .input-div {
+            margin-bottom: 2rem;
+        }
+    </style>
+</head>
+<body>
+<a class="btn btn-warning" href={% url 'logout' %}>Log Out</a>
+<h1>Staff Portal</h1>
+<div class="center-col">
+    <form method="POST" action="">
+        {% csrf_token %}
+        <div class="input-div">
+            <span>{{ menu_form.date.label }}</span>
+            {{ menu_form.date }}
+        </div>
+        {{ option_formset.management_form }}
+        <div class="input-div">
+            <p>Add one or more options: </p>
+            {% for option_form in option_formset %}
+                <p>Option {{ forloop.counter }}: {{ option_form.content }}</p>
+            {% endfor %}
+        </div>
+        <input class="btn btn-success" type="submit" value="Create Menu">
+        <a href="/staff/menus/" class="btn btn-success">See all the Menus</a>
+    </form>
+
+    <form method="POST" action="/staff/orders/">
+        {% csrf_token %}
+        <label for="date">Select the date of the orders you want to see: </label>
+        <select id="date" name="date">
+            {% for date in dates %}
+                <option value='{{ date }}'>{{ date }}</option>
+            {% endfor %}
+        </select>
+        <button type="submit" class="btn btn-success">Search</button>
+    </form>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
+        crossorigin="anonymous"></script>
+</body>
+</html>
