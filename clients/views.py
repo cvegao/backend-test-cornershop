@@ -38,7 +38,7 @@ def client_home(request):
                 if option and comments:
                     # Instance of Order is made with option and comments from the form
                     order = Order(option=option, comments=comments)
-                    order.client = client # Client information is passed to order object
+                    order.client = client  # Client information is passed to order object
                     order.save()
 
                 messages.success(request, 'Thank you for your preference.')

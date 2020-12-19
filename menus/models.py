@@ -12,8 +12,12 @@ class Menu(models.Model):
         ordering = ['date']
 
     def join(self):
-        """Joins the date, UUID and the option of an specific date (menu's date)"""
-        return {self.date: Option.objects.filter(menu=self).values('content')}
+        """Joins the id and date of menu with the options of an specific date (menu's date)"""
+        return {
+            'id': self.id,
+            'date': self.date,
+            'options': Option.objects.filter(menu=self).values('content')
+        }
 
 
 class Option(models.Model):

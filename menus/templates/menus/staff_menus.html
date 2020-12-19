@@ -29,15 +29,13 @@
 <h1>Past Menus</h1>
 <div class="menus-list">
     {% for key, value in data.items %}
-        <form method="POST" action="{% url 'delete_menu' key.id %}">
+        <form method="POST" action="{% url 'delete_menu' value.id %}">
             <div class="menu-item row">
                 {% csrf_token %}
                 <div class="data col-sm-4">
-                    <p><strong>Date: </strong>{{ key.date }}</p>
-                    {% for menu in value.values %}
-                        {% for option in menu %}
-                            <p><strong>Option {{ forloop.counter }}: </strong>{{option.content }}</p>
-                        {% endfor %}
+                    <p><strong>Date: </strong>{{ value.date }}</p>
+                    {% for option in value.options %}
+                        <p><strong>Option {{ forloop.counter }}: </strong>{{ option.content }}</p>
                     {% endfor %}
                 </div>
                 <div class="buttons col-sm-4">
